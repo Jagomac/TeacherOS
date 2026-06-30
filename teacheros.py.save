@@ -1,0 +1,85 @@
+import os
+
+# Command database (your teaching layer)
+commands = {
+    "ls": {
+        "meaning": "Lists files and directories",
+        "options": {
+            "-l": "Long listing format (permissions, size, date)",
+            "-a": "Include hidden files"
+        },
+        "english": "Show all files in this directory, including hidden ones, with details."
+    },
+    "pwd": {
+        "meaning": "Print Working Directory",
+        "options": {},
+        "english": "Show me where I am in the system."
+    },
+    "mkdir": {
+        "meaning": "Make directory",
+        "options": {},
+        "english": "Create a new folder."
+    }
+}
+
+def explain(command_input):
+    parts = command_input.split()
+    cmd = parts[0]
+
+    if cmd in commands:
+        info = commands[cmd]
+
+        print("\n📖 Lesson")
+        print(f"Command: {cmd}")
+        print(f"Meaning: {info['meaning']}")
+
+        if info["options"]:
+            print("\nOptions:")
+            for opt, desc in info["options"].items():
+                print(f"  {opt} → {desc}")
+
+        print("\nEquivalent English:")
+        print(info["english"])
+    else:
+        print("\n⚠️ Unknown command (no lesson available yet)")
+
+def run():
+    while True:
+        user_input = input("\n$ ")
+
+        if user_input.lower() in ["exit", "quit"]:
+            print("Goodbye 👋")
+            break
+
+        explain(user_input)
+
+        choice = input("\n[Y] Yes  [N] No  [M] More > ").lower()
+
+        if choice == "y":
+            os.system(user_input)
+        elif choice == "m":
+            print("\n💡 Try examples like:")
+            print("ls")
+            print("ls -l")
+            print("pwd")
+        else:
+            print("Command canceled.")
+
+if __name__ == "__main__":
+    run()
+commands = {
+    "ls": { ... },
+    "pwd": { ... },
+    "mkdir": { ... },
+
+    # 👇 ADD IT RIGHT HERE
+    "rm": {
+        "meaning": "Remove files or directories",
+        "options": {
+            "-r": "Remove directories recursively",
+            "-f": "Force removal (no confirmation)"
+        },
+        "english": "Delete files or folders (be careful!)"
+    }
+}
+
